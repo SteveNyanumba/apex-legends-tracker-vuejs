@@ -1,6 +1,0 @@
-[submodule "apex-legends-tracker-vuejs-client"]
-	path = apex-legends-tracker-vuejs-client
-	url = https://github.com/SteveNyanumba/apex-legends-tracker-vuejs-client.git
-[submodule "client"]
-	path = client
-	url = https://github.com/SteveNyanumba/apex-legends-tracker-vuejs-client.git
