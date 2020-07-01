@@ -4402,7 +4402,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      kingstevennos: [],
+      stats: [],
+      damage: ''
+    };
+  },
+  methods: {
+    getNosData: function getNosData() {
+      var _this = this;
+
+      axios.get('/api/v1/profile/xbl/KingStevenNOS').then(function (res) {
+        _this.kingstevennos = res.data;
+        console.log(res.data);
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
+  },
+  created: function created() {
+    this.getNosData();
+  }
+});
 
 /***/ }),
 
@@ -23855,9 +23903,59 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-4 col-12" }, [
+        _c("div", { staticClass: "card testimonial-card mt-2 mb-3" }, [
+          _c("div", {
+            staticClass: "card-up apex-bg",
+            style: {
+              backgroundImage:
+                "url(" +
+                _vm.kingstevennos.data.segments[1].metadata.bgImageUrl +
+                ")"
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "avatar mx-auto white" }, [
+            _c("img", {
+              staticClass: "rounded-circle img-responsive",
+              attrs: {
+                src: _vm.kingstevennos.data.platformInfo.avatarUrl,
+                alt: "woman avatar"
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("h4", { staticClass: "card-title font-weight-bold" }, [
+              _vm._v(
+                _vm._s(_vm.kingstevennos.data.platformInfo.platformUserHandle)
+              )
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _vm._m(0)
+          ])
+        ])
+      ])
+    ])
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("i", { staticClass: "fas fa-quote-left" }),
+      _vm._v(
+        " Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos,\r\n        adipisci"
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -36006,9 +36104,13 @@ __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js");
 
-__webpack_require__(/*! @fortawesome/fontawesome-free */ "./node_modules/@fortawesome/fontawesome-free/js/fontawesome.js"); //Initializing the Vue instances
+__webpack_require__(/*! @fortawesome/fontawesome-free */ "./node_modules/@fortawesome/fontawesome-free/js/fontawesome.js"); //Custom Scripts
 
 
+__webpack_require__(/*! ./custom */ "./resources/js/custom.js"); //Initializing the Vue instances
+
+
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 var _require = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js"),
@@ -36090,6 +36192,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tracker_vue_vue_type_template_id_40d7a49d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Tracker_vue_vue_type_template_id_40d7a49d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/custom.js":
+/*!********************************!*\
+  !*** ./resources/js/custom.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 
 

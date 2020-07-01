@@ -3,8 +3,12 @@ require('jquery')
 require('popper.js')
 require('@fortawesome/fontawesome-free')
 
+//Custom Scripts
+require('./custom')
+
 //Initializing the Vue instances
 
+window.axios = require('axios')
 window.Vue = require('vue')
 
 const {AlertError, Form, HasError} = require('vform')
