@@ -1,3 +1,10 @@
+// Custom Fonts
+@import url('https://fonts.googleapis.com/css2?family=Yellowtail&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@400;600&display=swap');
+
+// Custom Styles
+@import 'styles';
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap.scss';
 
@@ -7,6 +14,3 @@
 @import'~@fortawesome/fontawesome-free/scss/regular.scss';
 @import'~@fortawesome/fontawesome-free/scss/solid.scss';
 @import'~@fortawesome/fontawesome-free/scss/v4-shims.scss';
-
-// Custom Styles
-@import 'styles'

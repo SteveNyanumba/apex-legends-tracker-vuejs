@@ -1,57 +1,53 @@
-.heading {
-    font-weight: 700;
-    color: #5d4267;
-  }
-  .card.colorful-card .testimonial-card .card-up {
-    height: 95px;
-  }
-  .card.colorful-card .testimonial-card .avatar {
-    border: 3px solid #fff !important;
-  }
-  .card.booking-card {
-    background-color: #c7f2e3;
-  }
-  .card.booking-card .fa {
-    color: #f7aa00;
-  }
-  .card.booking-card .card-body .card-text {
-    color: #db2d43;
-  }
-  .card.card.booking-card .chip {
-    background-color: #87e5da;
-  }
-  .card.booking-card .card-body hr {
-    border-top: 1px solid #f7aa00;
-  }
-  .mimosa {
-    background-color: #F0C05A;
-  }
-  .fuchsia-rose-text {
-    color: #db0075;
-  }
-  .aqua-sky-text {
-    color: #5cc6c3;
-  }
-  .mimosa-text {
-    color: #F0C05A;
-  }
-  .list-inline-item .fas, .list-inline-item .far {
-    font-size: .8rem;
-  }
-  .chili-pepper-text {
-    color: #9B1B30;
-  }
-  .collapse-content .fa.fa-heart:hover {
-    color: #f44336 !important;
-  }
-  .collapse-content .fa.fa-share-alt:hover {
-    color: #0d47a1 !important;
-  }
-  .card-wrapper.card-action {
-    min-height: 400px;
-  }
+body{
+  background-image: url('../images/apex-bg.jpg');
+  background-position: top;
+  font-family: 'Teko', sans-serif !important;
+}
 
-.img-responsive{
-  width: 125px;
-  height: auto;
+.text-xbox{
+  color: #52b043;
+}
+
+.text-playstation{
+  color:#003087;
+}
+
+.profile{
+  z-index: 2;
+  align-items: center;
+  align-self: center;
+  border-block-end-color: inherit;
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+  margin-top: -50px;
+  flex-shrink: 0;
+}
+
+.text-apex{
+  color: #A4373D;
+  outline-color: #E3DFD6;
+} 
+
+.btn-apex {
+  color: #fff !important;
+  background-color: #A4373D !important;
+  border-color: #F97B2E !important;
+}
+
+.btn-apex:hover {
+  color: #fff !important;
+  background-color: #A4373D !important;
+  border-color: #E3DFD6 !important;
+}
+
+.btn-apex:focus,
+.btn-apex.focus {
+  color: #fff !important;
+  background-color: #A4373D !important;
+  border-color: #E3DFD6 !important;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5) !important;
+}
+
+.card-apex{
+  
 }

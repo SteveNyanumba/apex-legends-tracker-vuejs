@@ -3,8 +3,6 @@ require('jquery')
 require('popper.js')
 require('@fortawesome/fontawesome-free')
 
-//Custom Scripts
-require('./custom')
 
 //Initializing the Vue instances
 
@@ -23,3 +21,19 @@ const app = new Vue({
     el:"#app"
     
 })
+
+const Swal = require('sweetalert2')
+window.Swal = Swal
+
+const Toast = Swal.mixin({
+    toast:true,
+    position:'top-right',
+    timer:3500,
+    timerProgressBar:true
+})
+
+window.Toast = Toast
+
+
+//Custom Scripts
+require('./custom')
