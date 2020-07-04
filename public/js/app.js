@@ -4539,6 +4539,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -27541,7 +27542,31 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "card-footer text-center" }, [
+                _vm.kingstevennos.data.segments[0].stats.level.displayValue >
+                _vm.challenger.data.segments[0].stats.level.value
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-apex",
+                        attrs: { disabled: "disabled" }
+                      },
+                      [_vm._v(" You are almost There!! Work Harder")]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.kingstevennos.data.segments[0].stats.level.displayValue <
+                _vm.challenger.data.segments[0].stats.level.value
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success",
+                        attrs: { disabled: "disabled" }
+                      },
+                      [_vm._v(" You are ahead!! looks like I need to work")]
+                    )
+                  : _vm._e()
+              ])
             ])
           ])
         : _vm._e()
@@ -27565,7 +27590,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -27628,11 +27653,11 @@ var render = function() {
                                 }
                               },
                               [
+                                _vm._m(2),
+                                _vm._v(" "),
                                 _vm._m(3),
                                 _vm._v(" "),
-                                _vm._m(4),
-                                _vm._v(" "),
-                                _vm._m(5)
+                                _vm._m(4)
                               ]
                             ),
                             _vm._v(" "),
@@ -27747,17 +27772,6 @@ var staticRenderFns = [
         },
         [_vm._v("Compare")]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer text-center" }, [
-      _c("button", {
-        staticClass: "btn btn-apex",
-        attrs: { disabled: "disabled" }
-      })
     ])
   },
   function() {

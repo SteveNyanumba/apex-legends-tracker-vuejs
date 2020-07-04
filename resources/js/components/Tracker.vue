@@ -89,7 +89,8 @@
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <button disabled="disabled" class="btn btn-apex"></button>
+                    <button disabled="disabled" class="btn btn-apex" v-if="kingstevennos.data.segments[0].stats.level.displayValue > challenger.data.segments[0].stats.level.value"> You are almost There!! Work Harder</button>
+                    <button disabled="disabled" class="btn btn-success" v-if="kingstevennos.data.segments[0].stats.level.displayValue < challenger.data.segments[0].stats.level.value"> You are ahead!! looks like I need to work</button>
                 </div>
             </div>
         </div>
