@@ -4500,11 +4500,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      kingstevennos: [],
-      challenger: [],
+      kingstevennos: '',
+      challenger: '',
       nosStats: {
         damage: '',
         kills: '',
@@ -4522,11 +4561,16 @@ __webpack_require__.r(__webpack_exports__);
         platformSlug: '',
         avatarUrl: ''
       },
-      player: {
+      player: new Form({
         platform: '',
         handle: ''
-      }
+      })
     };
+  },
+  computed: {
+    isEmpty: function isEmpty() {
+      return $.isEmptyObject(this.challenger);
+    }
   },
   methods: {
     getNosData: function getNosData() {
@@ -4540,19 +4584,40 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getChallenger: function getChallenger() {
-      if (this.player.platform === null) {
-        console.log('There is no Platform selected');
-        Toast.fire({
-          icon: 'error',
-          title: 'There is no Platform selected'
-        });
-      }
+      var _this2 = this;
 
-      if (this.player.platform === null) {
-        console.log('You have not entered your gamertag');
+      var gamertag = this.player.handle;
+      var platform = this.player.platform;
+
+      if (gamertag.length == 0) {
         Toast.fire({
-          icon: 'error',
-          title: 'You have not entered your gamertag'
+          icon: 'warning',
+          title: 'Enter your gamertag!'
+        });
+      } else if (platform.length == 0) {
+        Toast.fire({
+          icon: 'warning',
+          title: 'Select your Platform!'
+        });
+      } else {
+        axios.get("/api/v1/profile/".concat(platform, "/").concat(gamertag)).then(function (res) {
+          console.log(res.data);
+
+          if (res.data.errors) {
+            Toast.fire({
+              icon: 'info',
+              title: 'User Not Found'
+            });
+          } else {
+            _this2.challenger = res.data;
+            $('#search').modal('hide');
+          }
+        })["catch"](function (err) {
+          console.log(err);
+          Toast.fire({
+            icon: 'error',
+            title: err
+          });
         });
       }
     }
@@ -27205,7 +27270,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-md-6 col-12" }, [
+      _c("div", { staticClass: "col-md-6 col-12 my-3" }, [
         _c("div", { staticClass: "card card-apex" }, [
           _c("img", {
             staticClass: "card-img-top",
@@ -27263,73 +27328,223 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c("p", { staticClass: "card-text" }),
-            _c("div", { staticClass: "row justify-content-center" }, [
-              _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
-                _vm._v("\r\n                                Kills: "),
-                _c("b", [
-                  _vm._v(
-                    _vm._s(
-                      _vm.kingstevennos.data.segments[0].stats.kills
-                        .displayValue
-                    )
-                  )
-                ]),
-                _vm._v(" "),
-                _c("hr")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
-                _vm._v("\r\n                                Damage: "),
-                _c("b", [
-                  _vm._v(
-                    _vm._s(
-                      _vm.kingstevennos.data.segments[0].stats.damage
-                        .displayValue
-                    )
-                  )
-                ]),
-                _vm._v(" "),
-                _c("hr")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
-                _vm._v("\r\n                                Rank Score: "),
-                _c("b", [
-                  _vm._v(
-                    _vm._s(
-                      _vm.kingstevennos.data.segments[0].stats.rankScore
-                        .displayValue
-                    )
-                  )
-                ]),
-                _vm._v(" "),
-                _c("hr")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-12 text-center" }, [
-                _c("h2", { staticClass: "text-center text-apex" }, [
-                  _vm._v("LEVEL: "),
+            _c("div", { staticClass: "card-text" }, [
+              _c("div", { staticClass: "row justify-content-center" }, [
+                _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
+                  _vm._v("\r\n                                Kills: "),
                   _c("b", [
                     _vm._v(
                       _vm._s(
-                        _vm.kingstevennos.data.segments[0].stats.level
+                        _vm.kingstevennos.data.segments[0].stats.kills
                           .displayValue
                       )
                     )
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c("hr")
                 ]),
                 _vm._v(" "),
-                _c("hr")
+                _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
+                  _vm._v("\r\n                                Damage: "),
+                  _c("b", [
+                    _vm._v(
+                      _vm._s(
+                        _vm.kingstevennos.data.segments[0].stats.damage
+                          .displayValue
+                      )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("hr")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6 col-12 text-center" }, [
+                  _vm._v("\r\n                                Rank Score: "),
+                  _c("b", [
+                    _vm._v(
+                      _vm._s(
+                        _vm.kingstevennos.data.segments[0].stats.rankScore
+                          .displayValue
+                      )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("hr")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12 text-center" }, [
+                  _c("h2", { staticClass: "text-center text-apex" }, [
+                    _vm._v("LEVEL: "),
+                    _c("b", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.kingstevennos.data.segments[0].stats.level
+                            .displayValue
+                        )
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("hr")
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("p")
+            ])
           ]),
           _vm._v(" "),
           _vm._m(0)
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      !_vm.isEmpty
+        ? _c("div", { staticClass: "col-md-6 col-12 my-3" }, [
+            _c("div", { staticClass: "card card-apex" }, [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: {
+                  src: _vm.challenger.data.segments[1].metadata.bgImageUrl,
+                  alt: "Background Image"
+                }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "profile rounded-circle",
+                attrs: {
+                  src: _vm.challenger.data.platformInfo.avatarUrl,
+                  alt: "Profile Image",
+                  width: "125px",
+                  height: "auto"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _vm.challenger.data.platformInfo.platformSlug === "xbl"
+                  ? _c("div", { staticClass: "card-subtitle text-center" }, [
+                      _c("i", { staticClass: "fab fa-xbox fa-lg text-xbox" })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.challenger.data.platformInfo.platformSlug === "psn"
+                  ? _c("div", { staticClass: "card-subtitle text-center" }, [
+                      _c("i", {
+                        staticClass: "fab fa-playstation fa-lg text-playstation"
+                      })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.challenger.data.platformInfo.platformSlug === "origin"
+                  ? _c("div", { staticClass: "card-subtitle text-center" }, [
+                      _c("i", { staticClass: "fab fa-steam fa-lg text-steam" })
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "h4",
+                  {
+                    staticClass: "card-title text-center",
+                    staticStyle: { "font-family": "'Yellowtail', cursive" }
+                  },
+                  [
+                    _c("a", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.challenger.data.platformInfo.platformUserHandle
+                        )
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-text" }, [
+                  _c("div", { staticClass: "row justify-content-center" }, [
+                    _vm.challenger.data.segments[0].stats.kills.value
+                      ? _c(
+                          "div",
+                          { staticClass: "col-md-6 col-12 text-center" },
+                          [
+                            _vm._v(
+                              "\r\n                                Kills: "
+                            ),
+                            _c("b", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.challenger.data.segments[0].stats.kills
+                                    .value
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("hr")
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.challenger.data.segments[0].stats.damage
+                      ? _c(
+                          "div",
+                          { staticClass: "col-md-6 col-12 text-center" },
+                          [
+                            _vm._v(
+                              "\r\n                                Damage: "
+                            ),
+                            _c("b", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.challenger.data.segments[0].stats.damage
+                                    .value
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("hr")
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.challenger.data.segments[0].stats.rankScore.value
+                      ? _c(
+                          "div",
+                          { staticClass: "col-md-6 col-12 text-center" },
+                          [
+                            _vm._v(
+                              "\r\n                                Rank Score: "
+                            ),
+                            _c("b", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.challenger.data.segments[0].stats
+                                    .rankScore.value
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("hr")
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12 text-center" }, [
+                      _c("h2", { staticClass: "text-center text-apex" }, [
+                        _vm._v("LEVEL: "),
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.challenger.data.segments[0].stats.level
+                                .displayValue
+                            )
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr")
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
+          ])
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c(
@@ -27350,13 +27565,12 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(1),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
                   "form",
                   {
-                    attrs: { method: "post" },
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
@@ -27414,11 +27628,11 @@ var render = function() {
                                 }
                               },
                               [
-                                _vm._m(2),
-                                _vm._v(" "),
                                 _vm._m(3),
                                 _vm._v(" "),
-                                _vm._m(4)
+                                _vm._m(4),
+                                _vm._v(" "),
+                                _vm._m(5)
                               ]
                             ),
                             _vm._v(" "),
@@ -27492,17 +27706,22 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-apex",
-                          attrs: { type: "submit" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.getChallenger($event)
-                            }
-                          }
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", "data-dismiss": "modal" }
                         },
-                        [_vm._v("Get")]
-                      )
+                        [_vm._v("Close")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "btn btn-apex",
+                        attrs: { type: "submit", value: "Get Challenger" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.getChallenger()
+                          }
+                        }
+                      })
                     ])
                   ]
                 )
@@ -27519,19 +27738,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-6" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-sm btn-apex",
-              attrs: { "data-toggle": "modal", "data-target": "#search" }
-            },
-            [_vm._v("Compare")]
-          )
-        ])
-      ])
+    return _c("div", { staticClass: "card-footer text-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-sm btn-apex",
+          attrs: { "data-toggle": "modal", "data-target": "#search" }
+        },
+        [_vm._v("Compare")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer text-center" }, [
+      _c("button", {
+        staticClass: "btn btn-apex",
+        attrs: { disabled: "disabled" }
+      })
     ])
   },
   function() {
@@ -39726,44 +39952,44 @@ module.exports = g;
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_0__);
 __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
-
-__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
 __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js");
 
-__webpack_require__(/*! @fortawesome/fontawesome-free */ "./node_modules/@fortawesome/fontawesome-free/js/fontawesome.js"); //Initializing the Vue instances
+__webpack_require__(/*! @fortawesome/fontawesome-free */ "./node_modules/@fortawesome/fontawesome-free/js/fontawesome.js");
 
+window.$ = window.jquery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); //Initializing the Vue instances
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
-var _require = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js"),
-    AlertError = _require.AlertError,
-    Form = _require.Form,
-    HasError = _require.HasError;
-
-window.Form = Form;
-Vue.component(HasError.name, HasError);
-Vue.component(AlertError.name, AlertError);
+window.Form = vform__WEBPACK_IMPORTED_MODULE_0__["Form"];
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_0__["HasError"]);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_0__["AlertError"]);
 Vue.component('tracker', __webpack_require__(/*! ./components/Tracker.vue */ "./resources/js/components/Tracker.vue")["default"]);
-var app = new Vue({
-  el: "#app"
-});
-
-var Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-
-window.Swal = Swal;
+window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 var Toast = Swal.mixin({
   toast: true,
-  position: 'top-right',
-  timer: 3500,
-  timerProgressBar: true
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: function onOpen(toast) {
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer);
+  }
 });
-window.Toast = Toast; //Custom Scripts
+window.Toast = Toast;
+var app = new Vue({
+  el: "#app"
+}); //Custom Scripts
 
 __webpack_require__(/*! ./custom */ "./resources/js/custom.js");
 

@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6 col-12">
+        <div class="col-md-6 col-12 my-3">
             <div class="card card-apex">
                 <img class="card-img-top" v-bind:src="kingstevennos.data.segments[1].metadata.bgImageUrl " alt="Background Image">
                 <img class="profile rounded-circle" v-bind:src="kingstevennos.data.platformInfo.avatarUrl" alt="Profile Image" width="125px" height="auto">
@@ -17,7 +17,7 @@
                     </div>
                     
                     <h4 class="card-title text-center" style="font-family: 'Yellowtail', cursive"><a>{{ kingstevennos.data.platformInfo.platformUserHandle }}</a></h4>
-                    <p class="card-text">
+                    <div class="card-text">
                         <div class="row justify-content-center">
                             <div class="col-md-6 col-12 text-center">
                                 Kills: <b>{{ kingstevennos.data.segments[0].stats.kills.displayValue }}</b>
@@ -40,21 +40,59 @@
                                 <hr>
                             </div>
                         </div>
-                    </p>
-
-
-
-                </div>
-                <div class="card-footer">
-                    <div class="row justify-content-center">
-                        <div class="col-6">
-                            <button class="btn btn-sm btn-apex" data-toggle="modal" data-target="#search">Compare</button>
-                        </div>
                     </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button class="btn btn-sm btn-apex" data-toggle="modal" data-target="#search">Compare</button>
                 </div>
             </div>
         </div>
-        
+        <div class="col-md-6 col-12 my-3" v-if="!isEmpty ">
+            <div class="card card-apex">
+                <img class="card-img-top" v-bind:src="challenger.data.segments[1].metadata.bgImageUrl " alt="Background Image">
+                <img class="profile rounded-circle" v-bind:src="challenger.data.platformInfo.avatarUrl" alt="Profile Image" width="125px" height="auto">
+                <div class="card-body">
+                    <div class="card-subtitle text-center" v-if="challenger.data.platformInfo.platformSlug === 'xbl'">
+                        <i class="fab fa-xbox fa-lg text-xbox"></i>
+                    </div>
+                    <div class="card-subtitle text-center" v-if="challenger.data.platformInfo.platformSlug === 'psn'">
+                        <i class="fab fa-playstation fa-lg text-playstation"></i>
+                    </div>
+                    <div class="card-subtitle text-center" v-if="challenger.data.platformInfo.platformSlug === 'origin'">
+                       <i class="fab fa-steam fa-lg text-steam"></i>
+                    </div>
+                    
+                    <h4 class="card-title text-center" style="font-family: 'Yellowtail', cursive"><a>{{ challenger.data.platformInfo.platformUserHandle }}</a></h4>
+                    <div class="card-text">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 col-12 text-center" v-if="challenger.data.segments[0].stats.kills.value">
+                                Kills: <b>{{ challenger.data.segments[0].stats.kills.value }}</b>
+                                <hr>
+                            </div>
+                            <div class="col-md-6 col-12 text-center" v-if="challenger.data.segments[0].stats.damage">
+                                Damage: <b>{{ challenger.data.segments[0].stats.damage.value }}</b>
+                                <hr>
+                            </div>
+                            <div class="col-md-6 col-12 text-center" v-if="challenger.data.segments[0].stats.rankScore.value">
+                                Rank Score: <b>{{ challenger.data.segments[0].stats.rankScore.value }}</b>
+                                <hr>
+                            </div>
+                            <!-- <div class="col-md-6 col-12">
+                                Wins: <b>{{ challenger.data.segments[0].stats.wins.displayValue }}</b>
+                                <hr>
+                            </div> -->
+                            <div class="col-12 text-center">
+                                <h2 class="text-center text-apex">LEVEL: <b>{{ challenger.data.segments[0].stats.level.displayValue }}</b></h2> 
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button disabled="disabled" class="btn btn-apex"></button>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -67,7 +105,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form @submit.prevent="getChallenger()" method="post">
+                    <form @submit.prevent="getChallenger() ">
                         <div class="modal-body">
                             <div class="row justify-content-center">
                                 <div class="form-group col-md-6 col-12">
@@ -89,8 +127,9 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                            <button type="submit" @click.prevent="getChallenger" class="btn btn-apex">Get</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" value="Get Challenger" class="btn btn-apex" @click.prevent="getChallenger()">
+                            
                         </div>
                     </form>
                 </div>
@@ -105,8 +144,8 @@ export default {
     
     data(){
         return{
-            kingstevennos:[],
-            challenger:[],
+            kingstevennos:'',
+            challenger:'',
             nosStats: {
                 damage:'',
                 kills:'',
@@ -125,13 +164,18 @@ export default {
                 avatarUrl:''
 
             },
-            player:{
+            player:new Form({
                 platform:'',
                 handle:''
-            }
+            })
        }
        
 
+    },
+    computed:{
+        isEmpty(){
+            return $.isEmptyObject(this.challenger)
+        }
     },
     
     methods:{
@@ -145,22 +189,47 @@ export default {
                 });
         },
         getChallenger(){
-            if (this.player.platform === null) {
-                console.log('There is no Platform selected');
-                
-                Toast.fire({
-                    icon: 'error',
-                    title: 'There is no Platform selected'
-                })
-            }
-            if (this.player.platform === null) {
-                console.log( 'You have not entered your gamertag');
-                Toast.fire({
-                    icon: 'error',
-                    title: 'You have not entered your gamertag'
-                })
-            }
+            let gamertag = this.player.handle
+            let platform = this.player.platform
 
+            if (gamertag.length == 0) {
+                Toast.fire({
+                    icon:'warning',
+                    title:'Enter your gamertag!'
+                })
+            }
+            else if (platform.length == 0) {
+                Toast.fire({
+                    icon:'warning',
+                    title:'Select your Platform!'
+                })
+            }
+            else{
+                axios.get(`/api/v1/profile/${platform}/${gamertag}`)
+                .then((res) => {
+                    console.log(res.data)
+                    if (res.data.errors) {
+                        Toast.fire({
+                            icon:'info',
+                            title:'User Not Found'
+                        })
+                    }
+                    else{
+                        this.challenger = res.data
+                        $('#search').modal('hide')
+
+                    }
+
+
+
+                }).catch((err) => {
+                    console.log(err)
+                    Toast.fire({
+                        icon:'error',
+                        title:err
+                    })
+                });
+            }
             
         }
     },
