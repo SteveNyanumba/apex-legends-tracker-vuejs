@@ -49,5 +49,13 @@ body{
 }
 
 .card-apex{
+  background: rgba(0,0,0,0.8) !important;
+  color: white !important;
+  img{
+    box-shadow: 2px 2px 2px 2px #E3DFD6 !important;
+  }
+}
 
+.nos-modal {
+  background-color: rgba(224,10,13,.1) !important;
 }

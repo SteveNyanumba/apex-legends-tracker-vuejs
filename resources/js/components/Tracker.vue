@@ -16,27 +16,28 @@
                        <i class="fab fa-steam fa-lg text-steam"></i>
                     </div>
                     
-                    <h4 class="card-title text-center" style="font-family: 'Yellowtail', cursive"><a>{{ kingstevennos.data.platformInfo.platformUserHandle }}</a></h4>
+                    <h4 class="card-title text-center" style="font-family: 'Yellowtail', cursive" v-if="kingstevennos.data.platformInfo.platformUserHandle"><a>{{ kingstevennos.data.platformInfo.platformUserHandle }}</a></h4>
                     <div class="card-text">
                         <div class="row justify-content-center">
-                            <div class="col-md-6 col-12 text-center">
-                                Kills: <b>{{ kingstevennos.data.segments[0].stats.kills.displayValue }}</b>
+                            <div class="col-md-6 col-12 text-center" v-if="kingstevennos.data.segments[0].stats.kills">
+                                {{ kingstevennos.data.segments[0].stats.kills.displayName }} : <b>{{ kingstevennos.data.segments[0].stats.kills.displayValue }}</b>
                                 <hr>
                             </div>
-                            <div class="col-md-6 col-12 text-center">
-                                Damage: <b>{{ kingstevennos.data.segments[0].stats.damage.displayValue }}</b>
+                            <div class="col-md-6 col-12 text-center" v-if="kingstevennos.data.segments[0].stats.damage">
+                                {{ kingstevennos.data.segments[0].stats.damage.displayName }} : <b>{{ kingstevennos.data.segments[0].stats.damage.displayValue }}</b>
                                 <hr>
                             </div>
-                            <div class="col-md-6 col-12 text-center">
-                                Rank Score: <b>{{ kingstevennos.data.segments[0].stats.rankScore.displayValue }}</b>
+                            <div class="col-md-6 col-12 text-center" v-if="kingstevennos.data.segments[0].stats.rankScore">
+                                {{ kingstevennos.data.segments[0].stats.rankScore.displayName }} : <b>{{ kingstevennos.data.segments[0].stats.rankScore.displayValue }}</b>
                                 <hr>
                             </div>
+                            
                             <!-- <div class="col-md-6 col-12">
                                 Wins: <b>{{ kingstevennos.data.segments[0].stats.wins.displayValue }}</b>
                                 <hr>
                             </div> -->
-                            <div class="col-12 text-center">
-                                <h2 class="text-center text-apex">LEVEL: <b>{{ kingstevennos.data.segments[0].stats.level.displayValue }}</b></h2> 
+                            <div class="col-12 text-center" v-if="kingstevennos.data.segments[0].stats.level.displayValue">
+                                <h2 class="text-center text-apex">{{ kingstevennos.data.segments[0].stats.level.displayName }} <b>{{ kingstevennos.data.segments[0].stats.level.displayValue }}</b></h2> 
                                 <hr>
                             </div>
                         </div>
@@ -65,42 +66,45 @@
                     <h4 class="card-title text-center" style="font-family: 'Yellowtail', cursive"><a>{{ challenger.data.platformInfo.platformUserHandle }}</a></h4>
                     <div class="card-text">
                         <div class="row justify-content-center">
-                            <div class="col-md-6 col-12 text-center" v-if="challenger.data.segments[0].stats.kills.value">
-                                Kills: <b>{{ challenger.data.segments[0].stats.kills.value }}</b>
+                            <div class="col-md-6 col-12 text-center" v-if="challenger.data.segments[0].stats.kills">
+                                {{ challenger.data.segments[0].stats.kills.displayName }}: <b>{{ challenger.data.segments[0].stats.kills.displayValue }}</b>
                                 <hr>
                             </div>
                             <div class="col-md-6 col-12 text-center" v-if="challenger.data.segments[0].stats.damage">
-                                Damage: <b>{{ challenger.data.segments[0].stats.damage.value }}</b>
+                                {{ challenger.data.segments[0].stats.damage.displayName}}: <b>{{ challenger.data.segments[0].stats.damage.displayValue }}</b>
                                 <hr>
                             </div>
-                            <div class="col-md-6 col-12 text-center" v-if="challenger.data.segments[0].stats.rankScore.value">
-                                Rank Score: <b>{{ challenger.data.segments[0].stats.rankScore.value }}</b>
+                            <div class="col-md-6 col-12 text-center" v-if="challenger.data.segments[0].stats.rankScore">
+                                {{ challenger.data.segments[0].stats.rankScore.displayName }}: <b>{{ challenger.data.segments[0].stats.rankScore.displayValue }}</b>
                                 <hr>
                             </div>
                             <!-- <div class="col-md-6 col-12">
                                 Wins: <b>{{ challenger.data.segments[0].stats.wins.displayValue }}</b>
                                 <hr>
                             </div> -->
-                            <div class="col-12 text-center">
-                                <h2 class="text-center text-apex">LEVEL: <b>{{ challenger.data.segments[0].stats.level.displayValue }}</b></h2> 
+                            <div class="col-12 text-center" v-if="challenger.data.segments[0].stats.level">
+                                <h2 class="text-center text-apex">{{ challenger.data.segments[0].stats.level.displayName}}: <b>{{ challenger.data.segments[0].stats.level.displayValue }}</b></h2> 
                                 <hr>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <button disabled="disabled" class="btn btn-apex" v-if="kingstevennos.data.segments[0].stats.level.displayValue > challenger.data.segments[0].stats.level.value"> You are almost There!! Work Harder</button>
-                    <button disabled="disabled" class="btn btn-success" v-if="kingstevennos.data.segments[0].stats.level.displayValue < challenger.data.segments[0].stats.level.value"> You are ahead!! looks like I need to work</button>
+                    <button class="btn btn-danger" v-if="kingstevennos.data.segments[0].stats.level.value > challenger.data.segments[0].stats.level.value"> You are almost There!! Work Harder</button>
+                    <button  class="btn btn-success" v-if="kingstevennos.data.segments[0].stats.level.value < challenger.data.segments[0].stats.level.value"> You are ahead!! looks like I need to work</button>
+                    <button  class="btn btn-secondary" v-if="kingstevennos.data.segments[0].stats.level.value === challenger.data.segments[0].stats.level.value"> We are on the same level. Let's see if that will stay the same</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade nos-modal" id="search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <div class="m-auto">
+                        <img src="../../images/apex-logo.png" alt="Apex Legends Logo" width="50px">
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -236,8 +240,6 @@ export default {
     },
     created(){
         this.getNosData()
-        
-        
     },
 
 }
